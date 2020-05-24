@@ -3,6 +3,7 @@ const router = Router();
 const _ = require('lodash');
 
 const authors = require('../../authors.json');
+const books = require('../../books.json');
 
 //Get all authors
 router.get('/authors', (req, res) => {
@@ -35,13 +36,26 @@ router.put('/authors/:id', (req, res) => {
     res.json(authors);
 });
 
-//Delete an author
+//Delete an author with his books
 router.delete('/authors/:id', (req, res) => {
     const id = req.params.id;
-    _.remove(authors, (author) => {
-        return author.id == id;
+
+    authors.forEach(author => {
+        if(author.id == id){
+
+            _.remove(authors, (author) => {
+                return author.id == id;
+            });
+
+            _.remove(books, (book) =>{
+                return book.authorId == id
+            });
+
+            res.json(books);
+        } else {
+            // res.status(400).json({'statusRequest': 'Bad Request'});
+        }
     });
-    res.json(authors);
 });
 
 module.exports = router;
