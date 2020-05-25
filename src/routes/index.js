@@ -6,5 +6,4 @@ const books = require('./book.router.js');
 router.use('/api', authors);
 router.use('/api', books);
 
-
 module.exports = router;

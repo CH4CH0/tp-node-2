@@ -3,7 +3,6 @@ const app = express();
 const morgan = require('morgan');
 const router = require('./routes/index.js');
 
-
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(morgan('dev'));
